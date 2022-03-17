@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html ng-app="todoApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+    <!-- AngularJS Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="index.js"></script>
+    <title>AngularJS Form Example and table</title>
+
+</head>
+<body ng-controller="TodoController as todoCtrl" class"d-flex flex-column h-11"> <br />
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top main-bgcolor">
+          <div class="container d-flex">
+            <img src="./robinMckim_portLogotype.svg" alt="logo" class="logoWidth" />
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav ms-auto mb-2 mb-md-0 px-2">
+                <li class="nav-item">
+                  <a class="nav-link text-white" aria-current="page" href="https://github/student-mckim/"><i class="bi bi-github" style="font-size: 1.4rem; color: white; margin-right: 5px;"></i> GITHUB</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" aria-current="page" href="https://www.linkedin.com/in/robin-mckim-dev/"><i class="bi bi-linkedin" style="font-size: 1.4rem; color: white; margin-right: 5px;"></i> LINKEDIN</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+<main class="flex-shrink-0">
+    <div class="container px-4 mb-4">
+        <h1 class="main-color">Assignment Tracker (via AngularJS)</h1>
+
+        <form ng-submit="todoCtrl.addTodoItem()" role="form">
+            <div class="row flex-row mt-4">
+                <div class="form-group col-md-6">
+                    <label for="duedate">Due Date</label>
+                        <input type="date" class="form-control" id="date" ng-model="todoCtrl.duedate"> <br />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name">Assignment Name</label>
+                        <input type="text" class="form-control" id="name" ng-model="todoCtrl.name" placeholder="Enter Name Here..." required>
+                <br /></div>
+            </div>
+             <div class="form-group">
+            <label for="description">Assignment Description</label>
+                <textarea class="form-control" id="description" ng-model="todoCtrl.description" placeholder="Enter Description" rows="3" required></textarea>
+              <br /></div>
+            <input type="hidden" ng-model="todoCtrl.id" />
+            <button class="btn main-bgcolor" type="submit"> <i class="bi bi-plus-circle" style="font-size: 1rem; color: white;"></i> ADD ASSIGNMENT </button>
+            
+        </form>
+        <br />
+        <br />
+        <h4> The table will show up below when Assignments are added. </h4>
+        <p>Once an Assignment is added to the table, the entire Assignment can be removed, edited and updated. <br />
+        Use the edit and update icons to alter the table form data or remove the Assignment with the trash Icon.</p>
+        <br />
+
+        <table class="table table-striped table-bordered" ng-show="todoCtrl.showTable">
+            <thead>
+                <tr>
+                  
+                  <th colspan="3">Assignment Name</th>
+                  <th colspan="3">Assignment Description</th>
+                  <th>Due Date</th>
+                  <th>Date Entered</th>
+                  <th></th> 
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr ng-repeat ="todo in todoCtrl.todos"><form>
+                    
+                    <td> 
+                        <div ng-hide="todo.editName">{{todo.name}} </div>
+                        <div class="mt-2" ng-show="todo.editName"><input type="text" class="form-control" placeholder="Edit Name Here" ng-model="todoCtrl.todo.name" required/>{{todo.name}}</div> </td>
+                    </td>
+                    <td>
+                        <a ng-hide="todo.editName" href="#" ng-click="todoCtrl.editName(todo)"><i class="bi bi-pencil-square" style="font-size: 1rem; color: rgb(8, 60, 156);"></i></a>
+                        <a ng-show="todo.editName" href="#"><i class="bi bi-pencil-square" style="font-size: 1rem; color: cornflowerblue;"></i></a>
+                    </td>
+                    <td>
+                        <a ng-show="todo.editName" href="#" ng-click="todoCtrl.updateName(todo)"><i class="bi bi-check2-square" style="font-size: 1rem; color: rgb(5, 126, 35);"></i></a>
+                        <a ng-hide="todo.editName" href="#"><i class="bi bi-check2-square" style="font-size: 1rem; color: rgb(51, 192, 87);"></i></a>
+                    </td>
+                     
+                    <td>   
+                        <div ng-hide="todo.editDescription">{{todo.description}}</div>
+                        <div class="mt-2" ng-show="todo.editDescription"><input type="text" class="form-control" ng-model="todoCtrl.todo.description" required />{{todo.description}}</div>
+                    </td>
+                    <td>
+                        <a ng-hide="todo.editDescription" href="#" ng-click="todoCtrl.editDescription(todo)"><i class="bi bi-pencil-square" style="font-size: 1rem; color: rgb(8, 60, 156);"></i></a>
+                        <a ng-show="todo.editDescription" href="#"><i class="bi bi-pencil-square" style="font-size: 1rem; color: cornflowerblue;"></i></a>
+                    </td>
+                    <td>                     
+                        <a ng-show="todo.editDescription" href="#" ng-click="todoCtrl.updateDescription(todo)"><i class="bi bi-check2-square" style="font-size: 1rem; color: rgb(5, 126, 35);"></i></a>
+                        <a ng-hide="todo.editDescription" href="#"><i class="bi bi-check2-square" style="font-size: 1rem; color: rgb(51, 192, 87);"></i></a>
+                    </td>
+                    <td> {{todo.duedate}}</td>
+                    
+                    
+                    <td> {{todo.date}}</td>
+                    <td> 
+                        <a href="#" ng-click="todoCtrl.remove(todo)"><i class="bi bi-trash" style="font-size: 1rem; color: rgb(204, 16, 16);"></i></a>
+                    </td>
+                    </form>
+                </tr>
+              </tbody>
+
+        </table>  
+ 
+</div>
+</main>
+<div class="container offcanvas main-bgcolor offcanvas-bottom" id="break-time">
+    <div class="offcanvas-header">
+        <h5>Listen and relax</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body ">
+      <iframe width="80%" height="140" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/149844883&color=%2300aabb&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user9175165" title="user9175165" target="_blank" style="color: #cccccc; text-decoration: none;">user9175165</a> · <a href="https://soundcloud.com/user9175165/deep-shamanic-meditation-relaxing-powerful-meditation-music-for-deep-relaxation-sleep-music-030" title="Deep Shamanic Meditation- Relaxing Powerful Meditation Music For Deep Relaxation, Sleep Music 030" target="_blank" style="color: #cccccc; text-decoration: none;">Deep Shamanic Meditation- Relaxing Powerful Meditation Music For Deep Relaxation, Sleep Music 030</a></div>
+    </div>
+  </div>
+  
+  <div class="container px-4 mt-2">
+    <h5>Hey! Assignments can be tough! Music always helps...</h5>
+    <button class="btn main-bgcolor" type="button" data-bs-toggle="offcanvas" data-bs-target="#break-time">
+        <i class="bi bi-emoji-smile-fill" style="font-size: 1rem; color: white;"></i> TAKE A BREAK!
+    </button>
+  </div>
+<footer class="main-bgcolor py-4 mt-5 text-center sticky-bottom">
+    <div class="d-inline-flex mb-2 mb-md-0 px-4 justify-content-center">
+        <a class="nav-link text-white" aria-current="page" href="https://github/student-mckim/"><i class="bi bi-github" style="font-size: 1.4rem; color: white; margin-right: 5px;"></i> GITHUB</a>
+        <a class="nav-link text-white" aria-current="page" href="https://www.linkedin.com/in/robin-mckim-dev/"><i class="bi bi-linkedin" style="font-size: 1.4rem; color: white; margin-right: 5px;"></i> LINKEDIN</a>
+        <a class="nav-link text-white" aria-current="page" href="https://www.linkedin.com/in/robin-mckim-dev/"><i class="bi bi-yin-yang" style="font-size: 1.4rem; color: white;"></i> ©2022 ROBIN MCKIM   </a>
+    </div>
+    </footer>
+</body>
+</html>

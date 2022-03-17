@@ -1,0 +1,47 @@
+/*Bootstrap Styles Used with some small additions here*/
+.main-color {
+  color: #78b8bc;
+}
+.main-bgcolor {
+  background-color: #78b8bc;
+  color: #fff;
+  font-weight: 600;
+}
+.btn.main-bgcolor:hover {
+  background-color: #32868c;
+  color: #fff;
+  font-weight: 600;
+}
+
+.logoWidth {
+  width: 8rem;
+}
+
+.glyphicon-remove {
+  color: pink;
+}
+.glyphicon-remove:hover {
+  color: red;
+  cursor: pointer;
+}
+.glyphicon-pencil {
+  color: rgb(168, 204, 209);
+}
+.glyphicon-pencil:hover {
+  color: rgb(50, 127, 138);
+  cursor: pointer;
+}
+.glyphicon-ok {
+  color: rgb(176, 207, 180);
+}
+.glyphicon-ok:hover {
+  color: rgb(29, 119, 41);
+  cursor: pointer;
+}
+.borderSide {
+  border-right: 1px solid gray;
+}
+main > .container {
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+}
